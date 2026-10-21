@@ -231,15 +231,14 @@ with st.sidebar:
     med_income = st.slider("Median Income (×$10k)", 0.0, 15.0, 3.5, step=0.1)
     population = st.slider("Population",  10, 10000, 1000)
 
-    st.markdown('<div class="section-header">Model</div>', unsafe_allow_html=True)
-    selected = st.selectbox("ML Algorithm", list(MODEL_META.keys()))
-
     st.markdown("---")
 
     if total_bedrms > total_rooms:
         st.warning("⚠️ Bedrooms exceed total rooms — please adjust.")
 
     predict_clicked = st.button("🔮 Predict Price")
+
+selected = 'Random Forest'
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def build_input_df() -> pd.DataFrame:
@@ -267,7 +266,7 @@ with tab_pred:
     with col_l:
         meta = MODEL_META[selected]
         m = metrics[selected]
-        st.markdown(f"### {meta['icon']} {selected}")
+        st.markdown(f"### {meta['icon']} Random Forest Predictor")
         st.markdown(f"<span style='color:#a0aec0'>{meta['desc']}</span>", unsafe_allow_html=True)
 
         st.markdown(
@@ -279,7 +278,7 @@ with tab_pred:
             unsafe_allow_html=True,
         )
         st.markdown("---")
-        st.markdown("**How to use:** Adjust sliders in the sidebar → choose a model → click **Predict Price**.")
+        st.markdown("**How to use:** Adjust sliders in the sidebar → click **Predict Price**.")
         st.markdown(
             "Three **engineered features** boost accuracy over raw inputs: "
             "*rooms/household*, *bedrooms/room*, *population/household*."
